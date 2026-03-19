@@ -26,6 +26,7 @@ files=(
   .cursor/extensions.txt
   scripts/start_kanata
   scripts/tmux-sessionizer
+  scripts/dotfiles-sync
   com.example.kanata.plist
 )
 
