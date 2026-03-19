@@ -19,6 +19,7 @@ files=(
   .claude/settings.json
   .claude/statusline-command.sh
   .claude/fetch-usage.sh
+  .claude/hooks/notification-alert.sh
   scripts/start_kanata
   scripts/tmux-sessionizer
   com.example.kanata.plist
