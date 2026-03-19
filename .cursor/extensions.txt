@@ -1,0 +1,13 @@
+anthropic.claude-code
+dbaeumer.vscode-eslint
+github.vscode-github-actions
+graphql.vscode-graphql
+graphql.vscode-graphql-syntax
+mhutchie.git-graph
+ms-azuretools.vscode-docker
+ms-python.debugpy
+ms-python.python
+openai.chatgpt
+prisma.prisma
+tobias-z.vscode-harpoon
+vscodevim.vim
