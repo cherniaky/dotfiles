@@ -12,6 +12,7 @@ files=(
   .zshenv
   .profile
   .gitconfig
+  .aerospace.toml
   .config/gitui/key_bindings.ron
   .config/git/ignore
   .config/gh/config.yml
@@ -20,6 +21,8 @@ files=(
   .claude/statusline-command.sh
   .claude/fetch-usage.sh
   .claude/hooks/notification-alert.sh
+  .cursor/cli-config.json
+  .cursor/mcp.json
   scripts/start_kanata
   scripts/tmux-sessionizer
   com.example.kanata.plist
