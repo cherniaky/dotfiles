@@ -12,7 +12,6 @@ files=(
   .zshenv
   .profile
   .gitconfig
-  .config/karabiner/karabiner.json
   .config/gitui/key_bindings.ron
   .config/git/ignore
   .config/gh/config.yml
