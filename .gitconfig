@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Yurii Cherniak
+	email = yuriicherniak@sudolabs.io
+# Please adapt and uncomment the following lines:
+#	name = Yurii Cherniak
+#	email = yuriicherniak@sudolabs.io
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

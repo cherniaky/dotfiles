@@ -1,0 +1,48 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/fetch-usage.sh > /dev/null 2>&1 &"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/fetch-usage.sh > /dev/null 2>&1 &"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notification-alert.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "slack@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "voiceEnabled": true,
+  "skipDangerousModePermissionPrompt": true
+}
