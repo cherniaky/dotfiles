@@ -7,6 +7,7 @@ My macOS development environment config.
 | Area | Config | Description |
 |------|--------|-------------|
 | Shell | `.zshrc`, `.zprofile`, `.zshenv`, `.profile` | Oh My Zsh with `zsh-vi-mode` (`kj` to escape), zoxide, nvm, aliases |
+| Editor | `nvim/` | Neovim config — Lazy.nvim, LSP, treesitter, custom keymaps |
 | Editor | `.cursor/` | Cursor settings — vim mode, harpoon bindings, relative line numbers, format on save, ESLint default formatter |
 | Tiling WM | `.aerospace.toml` | AeroSpace — vim-style focus/move (`alt-hjkl`), 5 workspaces, zero gaps |
 | Terminal | `.tmux.conf` | tmux — 1-indexed windows/panes |
@@ -14,11 +15,13 @@ My macOS development environment config.
 | Keyboard | `.config/kanata/`, `com.example.kanata.plist` | Kanata keyboard remapping with LaunchAgent |
 | Git | `.gitconfig`, `.config/git/ignore`, `.config/gh/config.yml` | Git LFS, gh CLI (`co` alias for `pr checkout`) |
 | Scripts | `scripts/tmux-sessionizer` | fzf-powered tmux session picker (`ctrl-f`) |
+| Scripts | `scripts/dotfiles-sync` | Auto-commit and push dotfiles changes |
 
 ## Prerequisites
 
 - [Oh My Zsh](https://ohmyz.sh/) + [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode)
 - [AeroSpace](https://github.com/nikitabobko/AeroSpace)
+- [Neovim](https://neovim.io/)
 - [Cursor](https://cursor.com)
 - [Claude Code](https://github.com/anthropics/claude-code)
 - [terminal-notifier](https://github.com/julienXX/terminal-notifier) (for Claude notification hook)
@@ -29,9 +32,9 @@ My macOS development environment config.
 ## Install
 
 ```sh
-git clone https://github.com/sudo-yurii-cherniak/dotfiles.git ~/dotfiles
+git clone https://github.com/cherniaky/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
 
-The script symlinks everything to `~` (and `~/Library/Application Support/Cursor/User/` for Cursor settings). Existing files are backed up as `.bak`. Cursor extensions from `extensions.txt` are installed automatically if the `cursor` CLI is available.
+The script symlinks everything to `~`, including `nvim/` → `~/.config/nvim` and Cursor settings to `~/Library/Application Support/Cursor/User/`. Existing files are backed up as `.bak`. Cursor extensions from `extensions.txt` are installed automatically if the `cursor` CLI is available.

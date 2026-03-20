@@ -45,6 +45,17 @@ for file in "${files[@]}"; do
   echo "Linked $file"
 done
 
+# Neovim config (symlink entire directory)
+NVIM_SRC="$DOTFILES_DIR/nvim"
+NVIM_DEST="$HOME_DIR/.config/nvim"
+if [ -e "$NVIM_DEST" ] && [ ! -L "$NVIM_DEST" ]; then
+  echo "Backing up $NVIM_DEST → ${NVIM_DEST}.bak"
+  mv "$NVIM_DEST" "${NVIM_DEST}.bak"
+fi
+mkdir -p "$(dirname "$NVIM_DEST")"
+ln -sf "$NVIM_SRC" "$NVIM_DEST"
+echo "Linked nvim config"
+
 # Cursor user settings (stored in Application Support, not home dir)
 CURSOR_USER_DIR="$HOME/Library/Application Support/Cursor/User"
 cursor_files=(settings.json keybindings.json)
