@@ -5,51 +5,22 @@ Personal Neovim configuration built on [Packer](https://github.com/wbthomason/pa
 ## Prerequisites
 
 - [Neovim](https://neovim.io/) >= 0.8
-- [Git](https://git-scm.com/)
-- A [Nerd Font](https://www.nerdfonts.com/) (optional, for icons)
 - [ripgrep](https://github.com/BurntSushi/ripgrep) (for Telescope live grep)
-- [tmux](https://github.com/tmux/tmux) (optional, for `tmux-sessionizer` integration)
+- A [Nerd Font](https://www.nerdfonts.com/) (optional, for icons)
 
 ## Installation
 
-### 1. Back up existing config (if any)
+This config is managed as part of [dotfiles](../README.md). Running `./install.sh` from the dotfiles root symlinks `nvim/` → `~/.config/nvim`.
 
-```sh
-mv ~/.config/nvim ~/.config/nvim.bak
-```
-
-### 2. Clone the repo
-
-```sh
-git clone https://github.com/cherniaky/neovim-config.git ~/.config/nvim
-```
-
-### 3. Install Packer
+After linking, install [Packer](https://github.com/wbthomason/packer.nvim) and plugins:
 
 ```sh
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
   ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+nvim -c 'PackerSync'
 ```
 
-### 4. Install plugins
-
-Open Neovim and run:
-
-```
-:PackerSync
-```
-
-Wait for all plugins to install, then restart Neovim.
-
-### 5. Install LSP servers
-
-LSP servers are managed by [Mason](https://github.com/williamboman/mason.nvim). Open Neovim and run:
-
-```
-:Mason
-```
-
-Install the language servers you need (e.g. `lua_ls`, `ts_ls`, `rust_analyzer`).
+LSP servers are managed by [Mason](https://github.com/williamboman/mason.nvim) — open Neovim and run `:Mason` to install servers you need.
 
 ## Structure
 
@@ -212,20 +183,11 @@ Install the language servers you need (e.g. `lua_ls`, `ts_ls`, `rust_analyzer`).
 
 ## Updating
 
-Pull the latest changes and sync plugins:
+Pull the dotfiles repo and sync plugins:
 
 ```sh
-cd ~/.config/nvim
-git pull
+cd ~/dotfiles && git pull
 nvim -c 'PackerSync'
 ```
 
 To update LSP servers, open Neovim and run `:Mason`, then press `U` to update all.
-
-## Uninstall
-
-```sh
-rm -rf ~/.config/nvim
-rm -rf ~/.local/share/nvim
-rm -rf ~/.cache/nvim
-```
