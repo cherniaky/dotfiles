@@ -123,7 +123,7 @@ function c() {
   if [ -n "$TMUX" ]; then
     tmux rename-window 'claude'
   fi
-  claude --dangerously-skip-permissions "$@"
+  claude --dangerously-skip-permissions --effort max "$@"
   if [ -n "$TMUX" ]; then
     tmux set-window-option automatic-rename on
   fi
