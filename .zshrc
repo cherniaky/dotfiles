@@ -142,3 +142,6 @@ nvm use default --silent
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 export PATH="$HOME/.local/bin:$PATH"
+
+# Raise file descriptor limit
+ulimit -n 10240

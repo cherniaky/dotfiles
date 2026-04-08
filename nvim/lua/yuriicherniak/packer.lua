@@ -51,6 +51,7 @@ return require('packer').startup(function(use)
     use('rafamadriz/friendly-snippets')
 
     use('lewis6991/gitsigns.nvim')
+    use('lewis6991/satellite.nvim')
 
     if PACKER_BOOTSTRAP then
         require("packer").sync()

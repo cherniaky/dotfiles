@@ -7,6 +7,15 @@ if ! command -v jq &> /dev/null || ! command -v terminal-notifier &> /dev/null; 
     exit 0
 fi
 
+# Skip notification if we're actively viewing this tmux window
+if [ -n "$TMUX" ] && [ -n "$TMUX_PANE" ]; then
+    ATTACHED=$(tmux display-message -p -t "$TMUX_PANE" '#{session_attached}' </dev/null 2>/dev/null || echo 0)
+    WIN_ACTIVE=$(tmux display-message -p -t "$TMUX_PANE" '#{window_active}' </dev/null 2>/dev/null || echo 0)
+    if [ "$ATTACHED" != "0" ] && [ "$WIN_ACTIVE" = "1" ]; then
+        exit 0
+    fi
+fi
+
 INPUT=$(cat)
 if [ -z "$INPUT" ]; then
     exit 0  # No input received
@@ -21,6 +30,9 @@ case "$NOTIFICATION_TYPE" in
     ;;
   "idle_prompt")
     TITLE="⏳ Claude Waiting for Input"
+    ;;
+  "stop")
+    TITLE="✅ Claude Finished"
     ;;
   *)
     TITLE="🤖 Claude Code"

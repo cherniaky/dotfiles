@@ -36,3 +36,6 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 vim.keymap.set("n", "GV","<cmd>GV --decorate<CR>")
+
+vim.keymap.set({ "n", "v" }, "j", "gj")
+vim.keymap.set({ "n", "v" }, "k", "gk")

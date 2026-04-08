@@ -12,27 +12,6 @@ vim.api.nvim_create_autocmd("FileType", {
       end
     end
 
-    -- Auto-refresh fugitive buffer every 5 seconds
-    local timer = vim.uv.new_timer()
-    timer:start(5000, 5000, vim.schedule_wrap(function()
-      if vim.api.nvim_buf_is_valid(args.buf) then
-        vim.api.nvim_buf_call(args.buf, function()
-          vim.cmd("edit")
-        end)
-      else
-        timer:stop()
-        timer:close()
-      end
-    end))
-    vim.api.nvim_create_autocmd("BufDelete", {
-      buffer = args.buf,
-      once = true,
-      callback = function()
-        timer:stop()
-        timer:close()
-      end,
-    })
-
     vim.keymap.set("n", "<CR>", function()
       if vim.fn.winnr("$") == 1 then
         -- Only fugitive window — open file in a vertical split to the left
