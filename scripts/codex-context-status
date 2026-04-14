@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+session_id="${1:-}"
+
+if [[ -z "${session_id}" ]]; then
+  session_id="$(
+    python3 - <<'PY'
+import json
+from pathlib import Path
+
+history_path = Path.home() / ".codex" / "history.jsonl"
+last_session_id = ""
+
+if history_path.exists():
+    for line in history_path.read_text().splitlines():
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        session_id = item.get("session_id")
+        if session_id:
+            last_session_id = session_id
+
+print(last_session_id)
+PY
+  )"
+fi
+
+if [[ -z "${session_id}" ]]; then
+  printf 'ctx --'
+  exit 0
+fi
+
+session_file="$(
+  find "${HOME}/.codex/sessions" -type f -name "*${session_id}*.jsonl" 2>/dev/null \
+    | sort \
+    | tail -n 1
+)"
+
+if [[ -z "${session_file}" ]]; then
+  printf 'ctx --'
+  exit 0
+fi
+
+python3 - "${session_file}" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+token_count = None
+
+with path.open() as f:
+    for line in f:
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        payload = item.get("payload", {})
+        if payload.get("type") == "token_count":
+            token_count = payload
+
+if not token_count:
+    print("#[bg=colour238,fg=colour255,bold] ctx -- #[default]", end="")
+    raise SystemExit(0)
+
+info = token_count.get("info", {})
+last = info.get("last_token_usage", {})
+input_tokens = last.get("input_tokens")
+window = info.get("model_context_window")
+
+if not input_tokens or not window:
+    print("#[bg=colour238,fg=colour255,bold] ctx -- #[default]", end="")
+    raise SystemExit(0)
+
+pct = (input_tokens / window) * 100
+
+def compact(n: int) -> str:
+    if n >= 1_000_000:
+        return f"{n / 1_000_000:.1f}m"
+    if n >= 10_000:
+        return f"{n / 1_000:.0f}k"
+    if n >= 1_000:
+        return f"{n / 1_000:.1f}k"
+    return str(n)
+
+if pct >= 85:
+    bg = "colour196"
+    fg = "colour255"
+elif pct >= 70:
+    bg = "colour214"
+    fg = "colour16"
+else:
+    bg = "colour34"
+    fg = "colour255"
+
+print(
+    f"#[bg={bg},fg={fg},bold] ctx {compact(input_tokens)}/{compact(window)} {pct:.0f}% #[default]",
+    end="",
+)
+PY
